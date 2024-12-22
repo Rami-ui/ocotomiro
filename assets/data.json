@@ -1,0 +1,81 @@
+[
+    {
+      "id": "INV-0001",
+      "timestamp": "2022-12-15T00:00:00Z",
+      "placement": "Warehouse A",
+      "organization": "Octomiro",
+      "madeBy": "Worker 1",
+      "line": {
+        "itemCode": "ITEM001",
+        "itemName": "Intel Core i7 Processor",
+        "itemDescription": "8-core processor for high-performance computing.",
+        "quantity": 50
+      }
+    },
+    {
+      "id": "INV-0002",
+      "timestamp": "2022-12-14T00:00:00Z",
+      "placement": "Warehouse B",
+      "organization": "Octomiro",
+      "madeBy": "Worker 2",
+      "line": {
+        "itemCode": "ITEM002",
+        "itemName": "Samsung 16GB RAM",
+        "itemDescription": "High-speed DDR4 RAM for enhanced multitasking.",
+        "quantity": 30
+      }
+    },
+    {
+      "id": "INV-0003",
+      "timestamp": "2022-11-01T00:00:00Z",
+      "placement": "Warehouse C",
+      "organization": "Octomiro",
+      "madeBy": "Worker 3",
+      "line": {
+        "itemCode": "ITEM003",
+        "itemName": "NVIDIA GeForce RTX 3080",
+        "itemDescription": "High-performance graphics card for gaming and AI applications.",
+        "quantity": 20
+      }
+    },
+    {
+      "id": "INV-0004",
+      "timestamp": "2022-10-14T00:00:00Z",
+      "placement": "Warehouse A",
+      "organization": "Octomiro",
+      "madeBy": "Worker 1",
+      "line": {
+        "itemCode": "ITEM004",
+        "itemName": "Apple MacBook Pro 16-inch",
+        "itemDescription": "Laptop with M1 Pro chip for professional content creation.",
+        "quantity": 15
+      }
+    },
+    {
+      "id": "INV-0005",
+      "timestamp": "2022-09-22T00:00:00Z",
+      "placement": "Warehouse B",
+      "organization": "Octomiro",
+      "madeBy": "Worker 2",
+      "line": {
+        "itemCode": "ITEM005",
+        "itemName": "Seagate 2TB Hard Drive",
+        "itemDescription": "External hard drive with fast read/write speeds.",
+        "quantity": 100
+      }
+    },
+    {
+      "id": "INV-0006",
+      "timestamp": "2022-08-30T00:00:00Z",
+      "placement": "Warehouse C",
+      "organization": "Octomiro",
+      "madeBy": "Worker 3",
+      "line": {
+        "itemCode": "ITEM006",
+        "itemName": "Dell UltraSharp 27-inch Monitor",
+        "itemDescription": "27-inch 4K monitor with ultra-thin bezels.",
+        "quantity": 25
+      }
+    }
+  ]
+  
