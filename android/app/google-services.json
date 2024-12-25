@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "612445188947",
+    "project_id": "octomiro-a4a77",
+    "storage_bucket": "octomiro-a4a77.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:612445188947:android:0d124c6b3d730c9d4d27a6",
+        "android_client_info": {
+          "package_name": "com.RBA.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAKhJBdnVQ4NjJre4f_FggwuB83Yg6auQc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

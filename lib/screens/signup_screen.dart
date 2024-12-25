@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:ocotomiro/screens/inventory_list_screen.dart';
-import 'package:ocotomiro/screens/signup_screen.dart';
-
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+import 'package:ocotomiro/controllers/signup_controller.dart';
+import 'package:ocotomiro/screens/login_screen.dart';
+class SignupScreen extends StatefulWidget {
+  const SignupScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => __LoginScreenState();
+  State<SignupScreen> createState() => __SingupScreenState();
 }
 
-class __LoginScreenState extends State<LoginScreen> {
-
+class __SingupScreenState extends State<SignupScreen> {
   var userForm = GlobalKey<FormState>();
+  TextEditingController fullname = TextEditingController();
+  TextEditingController phone = TextEditingController();
+  TextEditingController email = TextEditingController();
+  TextEditingController Password = TextEditingController();
+  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,48 +36,55 @@ class __LoginScreenState extends State<LoginScreen> {
                           width: double.infinity,
                           child: Image.asset("assets/images/logo2.png")
                         ),
-                        SizedBox(height: 100,),
+                        SizedBox(height: 30,),
                         CustomTextField(
+                          controller: fullname,
+                          hintText: "Full Name",
+                          obscureText: false,
+                          enableSuggestions: true,
+                          autocorrect: false,
+                        ),
+                        SizedBox(height: 20),
+                        CustomTextField(
+                          controller: phone,
+                          hintText: "Phone Number",
+                          obscureText: false,
+                          enableSuggestions: true,
+                          autocorrect: false,
+                        ),
+                        SizedBox(height: 20),
+                        CustomTextField(
+                          controller: email,
                           hintText: "Email",
                           obscureText: false,
                           enableSuggestions: true,
                           autocorrect: false,
-                        
-                          
-                    
                         ),
                         SizedBox(height: 20),
                         CustomTextField(
+                          controller: Password,
                           hintText: "Password",
                           obscureText: true,
                           enableSuggestions: false,
                           autocorrect: false,
-                         
-                    
                         ),
-                        SizedBox(height: 20,),
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text("Forgot Password?")),
+                        SizedBox(height: 20),
+                        CustomTextField(
+                          controller: Password,
+                          hintText: "Password confirmation",
+                          obscureText: true,
+                          enableSuggestions: false,
+                          autocorrect: false,
+                        ),
                         SizedBox(height: 20,),
                         SizedBox(
                           width: double.infinity,
                           height: 50,
                           child: ElevatedButton(onPressed: (){
                             if(userForm.currentState!.validate()){
-                    
-                              //navigate to inventory list screen 
-                              Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(builder: (context) {
-                                  return InventoryListScreen();
-                                }),
-                                (Route<dynamic> route) => false,
-                              );
+                              //register user
+                              SignupController.createAccount(context,email.text,Password.text,fullname.text,phone.text);
                             }
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text('Login successful')),
-                          );
                           },
                           style: ElevatedButton.styleFrom(
                               backgroundColor: const Color.fromARGB(187, 20, 75, 82), // Set the background color to green
@@ -81,32 +92,26 @@ class __LoginScreenState extends State<LoginScreen> {
                                 borderRadius: BorderRadius.circular(12)
                               )
                             ),
-                           child: Text("Log in",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16),)),
+                           child: Text("Sign Up",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16),)),
                         ),
                          SizedBox(height: 20,),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text("New user?",style: TextStyle(fontWeight: FontWeight.bold),),
-                            SizedBox(width: 10),
-                          
+                        Text("You have an account?",style: TextStyle(fontWeight: FontWeight.bold)),
+                        SizedBox(width: 10),
                         GestureDetector(
                           onTap: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => SignupScreen()),
+                              MaterialPageRoute(builder: (context) => LoginScreen()),
                             );
                           },
                           child: Text(
-                            "Sign Up",
+                            "Log in",
                             style: TextStyle(
                               color: Colors.blue,
                               fontWeight: FontWeight.bold,
                               decoration: TextDecoration.underline,
                             ),
                           ),
-                        ),
-                        ],
                         ),
                       ],
                     ),
@@ -130,17 +135,37 @@ class CustomTextField extends StatelessWidget {
   final bool obscureText;
   final bool enableSuggestions;
   final bool autocorrect;
+  final TextEditingController controller;
 
-  CustomTextField({required this.hintText,required this.obscureText,required this.enableSuggestions,required this .autocorrect});
-  
+  CustomTextField({required this.controller,required this.hintText,required this.obscureText,required this.enableSuggestions,required this .autocorrect});
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+    controller: controller,
         validator: (value){
                   if(value!.isEmpty){
                     return hintText + " is required";
                   }
+                  else if(hintText == "Email" && !value.contains("@")) 
+                  {
+                    return "Invalid email";
+                  }
+                  else if (hintText == "Password" && value.length < 6)
+                  {
+                    return "Password must be at least 6 characters";
+                  }
+                   else if (hintText == "Phone Number" && !RegExp(r'^[0-9]+$').hasMatch(value)) {
+                    return "Phone Number must contain only digits";
+                  }
+                  else if (hintText == "Phone Number" && value.length < 8) {
+                    return "Phone Number must be at least 8 digits";
+                  }
+                  // else if (hintText == "Password confirmation" && value != userForm.currentState?.fields['Password']?.value) {
+                  //   return "Passwords do not match";
+                  // }
+
+                  return null;
                 },
                 obscureText: obscureText,
                 enableSuggestions: enableSuggestions,

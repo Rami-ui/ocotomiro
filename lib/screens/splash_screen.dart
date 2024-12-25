@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:ocotomiro/screens/inventory_list_screen.dart';
 import 'package:ocotomiro/screens/login_screen.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -9,18 +10,32 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  var userForm = FirebaseAuth.instance.currentUser;
   @override
   void initState(){
 
 //check if user is logged in
 Future .delayed(Duration(seconds: 3),(){
-openloginscreen();
+  if(userForm != null){
+    openinventorylistscreen();
+  }else{
+    openloginscreen();
+  }
 });
 
 
 
     super.initState();
   }
+  void openinventorylistscreen(){
+    Navigator.push(context, MaterialPageRoute(builder: (context){
+      return InventoryListScreen();
+      })
+    );
+  }
+
+
+
   void openloginscreen(){
     Navigator.push(context, MaterialPageRoute(builder: (context){
       return LoginScreen();
