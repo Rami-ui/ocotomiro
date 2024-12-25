@@ -1,13 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:ocotomiro/screens/inventory_list_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ocotomiro/screens/splash_screen.dart';
 class SignupController {
 
 
   static Future<void> createAccount(BuildContext context,String email, String password, String fullName, String phoneNumber) async {
   try {
-    UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+    await FirebaseAuth.instance.createUserWithEmailAndPassword(
       email: email,
       password: password,
     );
@@ -26,15 +26,13 @@ class SignupController {
         SnackBar(content: Text('An error occurred. Please try again.')),
       );
     }
-
-    // You can also save additional user information to Firestore or Realtime Database here
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text('Sign up successful')),
     );
     Navigator.pushAndRemoveUntil(
       context,
       MaterialPageRoute(builder: (context) {
-        return InventoryListScreen();
+        return SplashScreen();
       }),
       (Route<dynamic> route) => false,
     );

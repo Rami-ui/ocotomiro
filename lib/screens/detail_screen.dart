@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:ocotomiro/controllers/detail_controller.dart';
 import 'package:ocotomiro/models/inventory_model.dart';
-
 class DetailScreen extends StatelessWidget {
   final InventoryDocument document;
 
   const DetailScreen({Key? key, required this.document}) : super(key: key);
+  
 
   @override
   Widget build(BuildContext context) {
@@ -62,6 +63,7 @@ class DetailScreen extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: () {
                   // Add functionality here
+                   DetailController(document: document).generatePdf(context);
                 },
                 
                 style: ElevatedButton.styleFrom(

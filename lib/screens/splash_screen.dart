@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:ocotomiro/providers/userProvider.dart';
 import 'package:ocotomiro/screens/inventory_list_screen.dart';
 import 'package:ocotomiro/screens/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:provider/provider.dart';
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -28,6 +30,7 @@ Future .delayed(Duration(seconds: 3),(){
     super.initState();
   }
   void openinventorylistscreen(){
+    Provider.of<UserProvider>(context,listen: false).getData();
     Navigator.push(context, MaterialPageRoute(builder: (context){
       return InventoryListScreen();
       })

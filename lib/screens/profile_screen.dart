@@ -1,8 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:ocotomiro/screens/inventory_list_screen.dart';
-import 'package:ocotomiro/screens/splash_screen.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ocotomiro/providers/userProvider.dart';
+import 'package:ocotomiro/screens/edit_profile_screen.dart';
+import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -12,21 +11,9 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  Map<String, dynamic>? userData = {};
-  void getData(){
-    FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).get().then((dataSnapshot){
-      userData = dataSnapshot.data();
-      setState(() {});
-    });
-    
-  }
-
-
-
-
-
   @override
   Widget build(BuildContext context) {
+    var userProvider = Provider.of<UserProvider>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text('Profile',style: TextStyle(fontWeight: FontWeight.bold,color:  const Color(0xBC22656e),fontFamily: "Poppins",fontSize: 19)
@@ -34,64 +21,45 @@ class _ProfileScreenState extends State<ProfileScreen> {
         backgroundColor: Colors.white,
         centerTitle: true,
       ),
-      drawer: Drawer(
-          child: ListView(
-            children: [
-              DrawerHeader(
-                decoration: BoxDecoration(
-                  color: const Color(0xBC22656e),
-                ),
-                child: Text('Menu',style: TextStyle(color: Colors.white,fontSize: 24,fontWeight: FontWeight.bold),),
-              ),
-              ListTile(
-                leading: Icon(Icons.home),
-                title: Text('Home',style: TextStyle(fontWeight: FontWeight.bold)),
-                onTap: () {
-                  Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(builder: (context) {
-                    return InventoryListScreen();
-                  }),
-                  (Route<dynamic> route) => false,
-                );
-                },
-              ),
-              ListTile(
-                leading: Icon(Icons.info),
-                title: Text('About',style: TextStyle(fontWeight: FontWeight.bold)),
-                onTap: () {
-                  Navigator.pop(context);
-                },
-              ),
-              ListTile(
-                leading: Icon(Icons.contact_mail),
-                title: Text('Contact',style: TextStyle(fontWeight: FontWeight.bold)),
-                onTap: () {
-                  Navigator.pop(context);
-                },
-              ),
-              ListTile(
-                leading: Icon(Icons.logout),
-                title: Text('Log out',style: TextStyle(fontWeight: FontWeight.bold)),
-                onTap: () async{
-                  await FirebaseAuth.instance.signOut();
-                  Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(builder: (context) {
-                      return SplashScreen();
-                    }),
-                    (Route<dynamic> route) => false,
-                  );
-                },
-              ),
-            ],
-          ),
-        ),
+      
         body: Column(
+          
           children: [
-            Text(userData?["fullName"] ?? ""),
-            Text(userData?["phoneNumber"] ?? ""),
-            Text(userData?["email"] ?? ""),
+            SizedBox(height: 50),
+            Container(
+              width: double.infinity,
+              alignment: Alignment.center,
+              child: CircleAvatar(
+                radius: 30,
+                child: Icon(Icons.person),
+              ),
+            ),
+            SizedBox(height: 15),
+            Text(userProvider.userName,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 24,color: const Color.fromARGB(187, 0, 0, 0),fontFamily: "Poppins")),
+            Text(userProvider.userEmail,style: TextStyle(fontSize: 20,color: const Color.fromARGB(187, 0, 0, 0),fontFamily: "Poppins")),
+            
+            
+            SizedBox(height: 20),
+
+            SizedBox(
+                          width: 300,
+                          height: 50,
+                          child: ElevatedButton(onPressed: (){
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) {
+                                return EditProfileScreen();
+                              }),
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color.fromARGB(187, 20, 75, 82), // Set the background color to green
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12)
+                              )
+                            ),
+                           child: Text("Edit Profile",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16),)),
+                        ),
           
           ]
         )

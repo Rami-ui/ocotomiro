@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:ocotomiro/screens/inventory_list_screen.dart';
+import 'package:ocotomiro/controllers/login_controller.dart';
 import 'package:ocotomiro/screens/signup_screen.dart';
 
 class LoginScreen extends StatefulWidget {
+  
   const LoginScreen({super.key});
 
   @override
@@ -10,8 +11,10 @@ class LoginScreen extends StatefulWidget {
 }
 
 class __LoginScreenState extends State<LoginScreen> {
-
   var userForm = GlobalKey<FormState>();
+   TextEditingController email = TextEditingController();
+   TextEditingController Password = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,13 +66,11 @@ class __LoginScreenState extends State<LoginScreen> {
                             if(userForm.currentState!.validate()){
                     
                               //navigate to inventory list screen 
-                              Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(builder: (context) {
-                                  return InventoryListScreen();
-                                }),
-                                (Route<dynamic> route) => false,
-                              );
+                              
+                              LoginController.login(
+                              context,
+                              email.text,
+                              Password.text,);
                             }
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(content: Text('Login successful')),
@@ -141,6 +142,7 @@ class CustomTextField extends StatelessWidget {
                   if(value!.isEmpty){
                     return hintText + " is required";
                   }
+                  return null;
                 },
                 obscureText: obscureText,
                 enableSuggestions: enableSuggestions,
