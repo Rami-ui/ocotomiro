@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ocotomiro/controllers/login_controller.dart';
 import 'package:ocotomiro/screens/inventory_list_screen.dart';
 import 'package:ocotomiro/screens/signup_screen.dart';
-import 'package:ocotomiro/screens/splash_screen.dart';
+
 
 class LoginScreen extends StatefulWidget {
   
