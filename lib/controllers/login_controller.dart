@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:ocotomiro/screens/inventory_list_screen.dart';
 import 'package:ocotomiro/screens/splash_screen.dart';
 class LoginController {
 
@@ -20,7 +21,7 @@ class LoginController {
     Navigator.pushAndRemoveUntil(
       context,
       MaterialPageRoute(builder: (context) {
-        return SplashScreen();
+        return InventoryListScreen();
       }),
       (Route<dynamic> route) => false,
     );

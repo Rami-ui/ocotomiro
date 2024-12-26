@@ -47,11 +47,6 @@ class SignupController {
       );
     }
   } 
-  // catch (e) {
-  //   ScaffoldMessenger.of(context).showSnackBar(
-  //     SnackBar(content: Text('An error occurred. Please try again.')),
-  //   );
-  // }
 }
 
 

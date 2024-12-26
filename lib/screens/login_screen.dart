@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ocotomiro/controllers/login_controller.dart';
+import 'package:ocotomiro/screens/inventory_list_screen.dart';
 import 'package:ocotomiro/screens/signup_screen.dart';
+import 'package:ocotomiro/screens/splash_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   
@@ -64,17 +66,18 @@ class __LoginScreenState extends State<LoginScreen> {
                           height: 50,
                           child: ElevatedButton(onPressed: (){
                             if(userForm.currentState!.validate()){
-                    
-                              //navigate to inventory list screen 
-                              
                               LoginController.login(
+                              context: context,
+                              email:  email.text,
+                              password:  Password.text,);
+                              Navigator.pushAndRemoveUntil(
                               context,
-                              email.text,
-                              Password.text,);
+                              MaterialPageRoute(builder: (context) {
+                                return InventoryListScreen();
+                              }),
+                              (Route<dynamic> route) => false,
+                            );
                             }
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text('Login successful')),
-                          );
                           },
                           style: ElevatedButton.styleFrom(
                               backgroundColor: const Color.fromARGB(187, 20, 75, 82), // Set the background color to green
